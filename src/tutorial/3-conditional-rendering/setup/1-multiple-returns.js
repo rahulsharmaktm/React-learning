@@ -8,19 +8,18 @@ const MultipleReturns = () => {
   useEffect(() => {
     fetch(url)
       .then((resp) => {
-        if(resp.status >= 200 && resp.status <=299){
-          return resp.json()
-        }else{
+        if (resp.status >= 200 && resp.status <= 299) {
+          return resp.json();
+        } else {
           setIsLoading(false);
-          setIsError(true)
-          throw new Error(resp.statusText)
-
+          setIsError(true);
+          throw new Error(resp.statusText);
         }
       })
-      .then((user)=>{
-        const {login} =user;
+      .then((user) => {
+        const { login } = user;
         setUser(login);
-        setIsLoading(false)
+        setIsLoading(false);
       })
       .catch((error) => console.log(error));
   }, []);

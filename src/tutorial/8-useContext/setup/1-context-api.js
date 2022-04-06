@@ -18,6 +18,9 @@ const ContextAPI = () => {
   );
 };
 
+
+
+
 const List = ({ people, removePerson }) => {
   return (
     <>
