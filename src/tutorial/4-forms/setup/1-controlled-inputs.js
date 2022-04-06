@@ -6,60 +6,79 @@ import React, { useState } from "react";
 // value, onChange
 
 const ControlledInputs = () => {
-  const [firstName, setFirstName] = useState("");
-  const [email, setEmail] = useState("");
+  // const [firstName, setFirstName] = useState("");
+  // const [email, setEmail] = useState("");
+
+  const [person, setPerson] = useState({
+    name: "",
+    email: "",
+    age: "",
+  });
   const [people, setPeople] = useState([]);
+
+  const handleChange = (e) => {
+    const name = e.target.name;
+    const value = e.target.value;
+    setPerson({ ...person, [name]: value });
+  };
 
   const haldleSubmit = (e) => {
     e.preventDefault();
-    if (firstName && email) {
-      const Person = {
-        id: new Date().getTime().toString(),
-        firstName,
-        email,
-      };
-      console.log(Person)
-      setPeople((people) => {
-        return [...people, Person];
-      });
-      setFirstName("");
-      setEmail("");
-    } else {
-      console.log("empty valuse");
+    console.log("clicked")
+    
+    if(person.firstName && person.email && person.age) {
+      const newPerson = { ...person, id: new Date().getTime().toString()};
+      setPeople([...people, newPerson]);
+      setPerson({ firstName: "", email: "", age: " " });
     }
   };
   return (
     <>
       <article>
-        <form className="form" onSubmit={haldleSubmit}>
+        <form className="form">
           <div className="form-control">
             <label>Name</label>
             <input
-              onChange={(e) => setFirstName(e.target.value)}
+              onChange={handleChange}
               type="text"
-              name="setFirstName"
-              value={firstName}
+              name="firstName"
+              id="name"
+              value={person.firstName}
             />
           </div>
           <div className="form-control">
             <label>Email</label>
             <input
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={handleChange}
               type="email"
               name="email"
-              value={email}
+              id="email"
+              value={person.email}
             />
           </div>
-          <button className="btn">Add Person</button>
+          <div className="form-control">
+            <label>Age</label>
+            <input
+              onChange={handleChange}
+              type="number"
+              name="age"
+              id="age"
+              value={person.age}
+            />
+          </div>
+          <button type="submit" onClick={haldleSubmit} className="btn">
+            Add Person
+          </button>
         </form>
 
         <div className="">
           {people.map((item) => {
-            const { id, firstName, email } = item;
+            const { id, firstName, email, age } = item;
             return (
               <div key={id}>
                 <h1> {firstName} </h1>
                 <h1> {email} </h1>
+                <h1> {age} </h1>
               </div>
             );
           })}
