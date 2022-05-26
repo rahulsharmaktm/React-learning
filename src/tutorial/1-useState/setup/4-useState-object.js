@@ -1,21 +1,24 @@
 import React, { useState } from 'react';
 
 const UseStateObject = () => {
-  const [person , setPerson] = useState({
+  const [people , setPeople] = useState({
     name: 'sachin',
-    age: '29',
-    msg: 'Hello world'
+    age: 26,
+    phoneNumber: 4534534534,
   })
-  const changeValue = ()=>{
-    setPerson({...person, msg:"Hello world change"})
-  }
-  return  <div className='container'>
-      
-  <h1> {person.name} </h1>
-  <h1> {person.age} </h1>
-  <h1> {person.msg} </h1>
-  <button className='btn' onClick={changeValue}>Change value</button>
-</div>
+ const changeValue =()=>{
+  setPeople({...people, age: 33}); 
+ }
+ 
+return(
+  <>
+  <h1>{people.name}</h1>
+  <h1>{people.age}</h1>
+  <h1>{people.phoneNumber}</h1>
+  <button className='btn' onClick={changeValue}>change</button>
+  
+  </>
+)
 };
 
 export default UseStateObject;
