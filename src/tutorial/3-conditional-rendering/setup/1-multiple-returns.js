@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 const url = "https://api.github.com/users/QuincyLarson";
 const MultipleReturns = () => {
-  const [isloading, setIsLoading] = useState(true);
-  const [isError, setIsError] = useState(false);
-  const [user, setUser] = useState("default");
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
+  const [userd, setUser] = useState("default user");
 
   useEffect(() => {
     fetch(url)
@@ -11,40 +11,31 @@ const MultipleReturns = () => {
         if (resp.status >= 200 && resp.status <= 299) {
           return resp.json();
         } else {
-          setIsLoading(false);
-          setIsError(true);
+          setLoading(false);
+          setError(true);
           throw new Error(resp.statusText);
         }
       })
       .then((user) => {
         const { login } = user;
         setUser(login);
-        setIsLoading(false);
+        setLoading(false);
       })
       .catch((error) => console.log(error));
   }, []);
 
-  if (isloading) {
-    return (
-      <>
-        <h1>Loading...</h1>
-      </>
-    );
+  if (loading) {
+    return <h1>Loading....</h1>;
   }
-  if (isError) {
-    return (
-      <>
-        <h1>Error</h1>
-      </>
-    );
+  if (error) {
+    return <h1>error....</h1>;
   }
-  if (user) {
-    return (
-      <>
-        <h1> {user} </h1>
-      </>
-    );
-  }
+
+  return (
+    <>
+      <h1>{userd}</h1>
+    </>
+  );
 };
 
 export default MultipleReturns;
